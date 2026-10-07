@@ -255,10 +255,10 @@
     }
 
     .gate-confirm-btn {
-      background: #10b981;
-      color: #ffffff;
-      display: none;
-    }
+  background: #10b981;
+  color: #ffffff;
+  display: flex;
+}
 
     #signupGateOverlay .mandatory-gate-box {
       max-width: 500px;
@@ -1086,9 +1086,9 @@
       <button class="gate-action-btn gate-tg-btn" onclick="handleTelegramJoinClick()">
         👉 Join Telegram Channel Now 🚀
       </button>
-      <button class="gate-action-btn gate-confirm-btn" id="btnTgConfirmed" onclick="confirmTelegramJoin()">
-        ✅ Maine Join Kar Liya (Next)
-      </button>
+      <button class="gate-action-btn gate-confirm-btn" id="btnTgConfirmed" style="display: flex;" onclick="confirmTelegramJoin()">
+  ✅ Maine Join Kar Liya (Next)
+</button>
     </div>
   </div>
 
