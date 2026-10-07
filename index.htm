@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>EduArya - Education Free App</title>
+  <meta name="theme-color" content="#0284c7">
+  <style>
+    /* =========================================
+       CSS VARIABLES & THEMES
+       ========================================= */
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #ffffff;
+      --surface-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --badge-free: #10b981;
+      --badge-premium: #f59e0b;
+      --danger: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.06), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 25px -3px rgba(2, 132, 199, 0.15);
+      --nav-height: 60px;
+      --bottom-nav-height: 65px;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #090e17;
+      --surface: #111827;
+      --surface-card: #141e33;
+      --surface-border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 30px rgba(56, 189, 248, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      padding-top: var(--nav-height);
+      padding-bottom: calc(var(--bottom-nav-height) + 20px);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    input, button, select, textarea {
+      font-family: inherit;
+    }
+
+    /* Offline Alert */
+    #networkStatus {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--danger);
+      color: #fff;
+      text-align: center;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 999999;
+    }
+
+    /* =========================================
+       SPLASH SCREEN
+       ========================================= */
+    #splashScreen {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #0b3b60;
+      padding: 24px;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .splash-logo-container {
+      width: 180px;
+      height: 180px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseLogo 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .splash-title {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #0b3b60;
+      line-height: 1.1;
+    }
+
+    .splash-tagline {
+      font-size: 15px;
+      color: #0284c7;
+      font-weight: 700;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .splash-loader-container {
+      width: 100%;
+      max-width: 250px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .splash-progress-track {
+      width: 100%;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .splash-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #0284c7);
+      border-radius: 10px;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.5);
+    }
+
+    .splash-net-text {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    .splash-percent {
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 4px;
+      color: #0284c7;
+    }
+
+    /* =========================================
+       MANDATORY APP GATES (TELEGRAM & SIGNUP)
+       ========================================= */
+    .mandatory-gate-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 99990;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .mandatory-gate-box {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      animation: zoomIn 0.3s ease;
+      position: relative;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .gate-icon-badge {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+
+    .gate-tg-badge {
+      background: linear-gradient(135deg, #229ED9, #0284c7);
+      box-shadow: 0 8px 20px rgba(34, 158, 217, 0.35);
+      color: #fff;
+    }
+
+    .gate-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .gate-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .gate-action-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .gate-tg-btn {
+      background: linear-gradient(135deg, #229ED9, #0284c7);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(34, 158, 217, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .gate-confirm-btn {
+      background: #10b981;
+      color: #ffffff;
+      display: none;
+    }
+
+    #signupGateOverlay .mandatory-gate-box {
+      max-width: 500px;
+      height: 92vh;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 16px;
+      text-align: left;
+    }
+
+    .signup-gate-iframe-box {
+      flex: 1;
+      background: #f1f5f9;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+      margin: 10px 0;
+    }
+
+    .form-error-msg {
+      display: none;
+      background: rgba(239, 68, 68, 0.12);
+      color: #dc2626;
+      font-size: 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* =========================================
+       TOP NAVIGATION BAR
+       ========================================= */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: var(--surface);
+      border-bottom: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .nav-logo-box {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-text h1 {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .brand-text p {
+      font-size: 10px;
+      color: var(--primary);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.94);
+      background: var(--surface-border);
+    }
+
+    .user-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7, #10b981);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid var(--surface);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* =========================================
+       DRAWER MENU
+       ========================================= */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 1050;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu-drawer {
+      position: fixed;
+      top: 0;
+      right: -290px;
+      width: 280px;
+      height: 100%;
+      background: var(--surface);
+      z-index: 1060;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+      transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+    }
+
+    .menu-drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--surface-border);
+      margin-bottom: 16px;
+    }
+
+    .drawer-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .menu-item:hover, .menu-item:active {
+      background: var(--surface-border);
+    }
+
+    /* =========================================
+       APP CONTAINER & LAYOUT
+       ========================================= */
+    .app-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO CARD */
+    .hero-card {
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-tagline {
+      font-size: 14px;
+      color: #e0f2fe;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      color: #bae6fd;
+      margin-top: 6px;
+    }
+
+    .hero-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-btn {
+      background: #ffffff;
+      color: #0284c7;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .hero-btn:active {
+      transform: scale(0.95);
+    }
+
+    .hero-btn.outline {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      backdrop-filter: blur(5px);
+    }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .feature-item {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    .telegram-banner {
+      background: linear-gradient(135deg, #229ED9 0%, #1778A9 100%);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(34, 158, 217, 0.3);
+    }
+
+    .tg-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .tg-content p {
+      font-size: 11px;
+      color: #e0f2fe;
+    }
+
+    .tg-btn {
+      background: #ffffff;
+      color: #0284c7;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+    }
+
+    /* SEARCH & FILTER */
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 0 16px 0 42px;
+      font-size: 14px;
+      outline: none;
+      box-shadow: var(--shadow);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-pill {
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
+    /* =========================================
+       APP CARD SYSTEM (CLEAN WITH MINI SAVE BUTTON)
+       ========================================= */
+    .apps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .app-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+      padding-right: 40px;
+    }
+
+    .card-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .badge-free {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--badge-free);
+    }
+
+    .badge-premium {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--badge-premium);
+    }
+
+    .card-credit {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-study-now {
+      width: 100%;
+      height: 42px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+
+    .btn-study-now:active {
+      transform: scale(0.98);
+    }
+
+    .btn-mini-save {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+    }
+
+    .btn-mini-save svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: fill 0.2s, stroke 0.2s;
+    }
+
+    .btn-mini-save.saved {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-mini-save.saved svg {
+      fill: #ef4444;
+      stroke: #ef4444;
+    }
+
+    /* =========================================
+       BOOKS SECTION
+       ========================================= */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .book-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 14px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #ef4444);
+    }
+
+    .book-badge {
+      display: inline-block;
+      align-self: center;
+      font-size: 10px;
+      font-weight: 800;
+      background: rgba(245, 158, 11, 0.15);
+      color: #d97706;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .book-icon {
+      font-size: 40px;
+      margin: 4px 0;
+    }
+
+    .book-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .book-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .btn-book-open {
+      width: 100%;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px var(--primary-glow);
+    }
+
+    /* =========================================
+       MODALS: SERVER SELECT POPUP
+       ========================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 500px;
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 30px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.25);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-backdrop.open .modal-sheet {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface-border);
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .server-list-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      max-height: 55vh;
+      padding-bottom: 10px;
+    }
+
+    .srv-choice-btn {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .srv-choice-btn:active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .srv-choice-btn.best {
+      border: 2px solid #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+      color: #d97706;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-nav-height);
+      background: var(--surface);
+      border-top: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .b-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 600;
+      flex: 1;
+      height: 100%;
+    }
+
+    .b-nav-item .icon {
+      font-size: 18px;
+    }
+
+    .b-nav-item.active {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Offline Status Alert -->
+  <div id="networkStatus">⚠️ Internet connection required</div>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splashScreen">
+    <div class="splash-logo-container">
+      <img src="logo.png" alt="EduArya Logo" style="width:100%; height:100%; object-fit:contain; display:none;" onload="this.style.display='block'; document.getElementById('svgSplashLogo').style.display='none';">
+      <svg id="svgSplashLogo" viewBox="0 0 280 280" width="100%" height="100%">
+        <defs>
+          <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="45%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+          <linearGradient id="torchGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="50%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+          <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+        </defs>
+
+        <path d="M 60 70 A 90 90 0 0 1 200 45" fill="none" stroke="url(#orbitGrad)" stroke-width="9" stroke-linecap="round"/>
+        <path d="M 225 105 A 90 90 0 0 1 145 220 A 90 90 0 0 1 45 140" fill="none" stroke="url(#orbitGrad)" stroke-width="10" stroke-linecap="round"/>
+        
+        <polygon points="208,60 213,74 228,74 216,83 220,97 208,88 196,97 200,83 188,74 203,74" fill="#10b981"/>
+
+        <line x1="140" y1="36" x2="140" y2="48" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+        <line x1="116" y1="46" x2="124" y2="55" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+        <line x1="164" y1="46" x2="156" y2="55" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+
+        <path d="M 140 48 C 132 64 126 74 140 96 C 154 74 148 64 140 48 Z" fill="url(#torchGrad)"/>
+        <path d="M 132 96 L 148 96 L 145 108 L 135 108 Z" fill="#0284c7"/>
+        <rect x="137" y="108" width="6" height="34" rx="2" fill="#0369a1"/>
+
+        <path d="M 80 115 C 104 115 124 125 137 138 L 137 186 C 122 172 102 165 80 165 Z" fill="none" stroke="#0284c7" stroke-width="7" stroke-linejoin="round"/>
+        <path d="M 200 115 C 176 115 156 125 143 138 L 143 186 C 158 172 178 165 200 165 Z" fill="none" stroke="#0284c7" stroke-width="7" stroke-linejoin="round"/>
+
+        <path d="M 68 178 C 100 178 142 162 186 122" fill="none" stroke="url(#arrowGrad)" stroke-width="11" stroke-linecap="round"/>
+        <polyline points="166,118 190,118 190,142" fill="none" stroke="#10b981" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1 class="splash-title">EduArya</h1>
+    <p class="splash-tagline">Education Free App</p>
+    <div class="splash-loader-container">
+      <div class="splash-progress-track">
+        <div class="splash-progress-bar" id="splashProgress"></div>
+      </div>
+      <p class="splash-net-text">Loading App (Depend on Mobile Network 🛜)</p>
+      <p class="splash-percent" id="splashPercent">0%</p>
+    </div>
+  </div>
+
+  <!-- GATE 1: TELEGRAM -->
+  <div class="mandatory-gate-overlay" id="telegramGateOverlay">
+    <div class="mandatory-gate-box">
+      <div class="gate-icon-badge gate-tg-badge">🚀</div>
+      <h2 class="gate-title">Telegram Join Required</h2>
+      <p class="gate-desc">
+        EduArya App का उपयोग करने के लिए हमारे ऑफ़िशियल Telegram चैनल से जुड़ना अनिवार्य (Mandatory) है। सभी नए अपडेट्स व सर्वर लिंक्स वहीं मिलते हैं।
+      </p>
+      <button class="gate-action-btn gate-tg-btn" onclick="handleTelegramJoinClick()">
+        👉 Join Telegram Channel Now 🚀
+      </button>
+      <button class="gate-action-btn gate-confirm-btn" id="btnTgConfirmed" onclick="confirmTelegramJoin()">
+        ✅ Maine Join Kar Liya (Next)
+      </button>
+    </div>
+  </div>
+
+  <!-- GATE 2: SIGNUP -->
+  <div class="mandatory-gate-overlay" id="signupGateOverlay">
+    <div class="mandatory-gate-box">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom: 4px;">
+        <span style="font-size:24px;">📝</span>
+        <h2 style="font-size:18px; font-weight:800; color:var(--text);">Registration Required</h2>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom: 8px;">
+        कृपया सही नाम, कक्षा और 10 अंकों का मोबाइल नंबर नीचे FORM मे भरें। इसके बिना ऐप नहीं खुलेगा।
+      </p>
+
+      <div id="gateFormError" class="form-error-msg">⚠️ कृपया सभी विवरण सही-सही भरें!</div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom: 6px;">
+        <input type="text" id="gateRegName" class="search-input" style="height:40px; font-size:13px; padding: 0 12px;" placeholder="आपका पूरा नाम (उदा. Ambar Kumar)">
+        
+        <div style="display:flex; gap:8px;">
+          <input type="tel" id="gateRegMobile" maxlength="10" class="search-input" style="height:40px; font-size:13px; padding: 0 12px; flex:1;" placeholder="10 Digit Mobile No.">
+          <select id="gateRegClass" class="search-input" style="height:40px; font-size:13px; padding: 0 8px; width:125px;">
+            <option value="10th">Class 10th</option>
+            <option value="12th">Class 12th</option>
+            <option value="Competitive">Competitive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="signup-gate-iframe-box">
+        <iframe
+          id="gateGoogleFormIframe"
+          style="width:100%; height:100%; border:none;"
+          src="about:blank"
+          title="EduArya Signup Form">
+          Loading Google Form...
+        </iframe>
+      </div>
+
+      <label style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-muted); margin-bottom:10px; cursor:pointer;">
+        <input type="checkbox" id="gateCheckbox" style="width:16px; height:16px;">
+        <span>मैंने ऊपर दिए गए फ़ॉर्म में भी सभी डिटेल्स सबमिट कर दी हैं</span>
+      </label>
+
+      <button class="gate-action-btn" style="background:#10b981; color:#fff;" onclick="verifyAndConfirmSignup()">
+        ✅ Submit Details & Unlock App
+      </button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="top-nav">
+    <div class="brand-wrap" onclick="navigateTo('home')">
+      <div class="nav-logo-box">
+        <img src="logo.png" alt="EA" style="width:100%; height:100%; object-fit:contain; display:none;" onload="this.style.display='block'; document.getElementById('svgNavLogo').style.display='none';">
+        <svg id="svgNavLogo" viewBox="0 0 280 280" width="36" height="36">
+          <circle cx="140" cy="140" r="115" fill="none" stroke="#0284c7" stroke-width="16"/>
+          <polygon points="208,60 213,74 228,74 216,83 220,97 208,88 196,97 200,83 188,74 203,74" fill="#10b981"/>
+          <path d="M 140 54 C 132 70 126 80 140 102 C 154 80 148 70 140 54 Z" fill="#10b981"/>
+          <path d="M 80 115 C 104 115 124 125 137 138 L 137 186 C 122 172 102 165 80 165 Z" fill="none" stroke="#0284c7" stroke-width="12"/>
+          <path d="M 200 115 C 176 115 156 125 143 138 L 143 186 C 158 172 178 165 200 165 Z" fill="none" stroke="#0284c7" stroke-width="12"/>
+          <path d="M 68 178 C 100 178 142 162 186 122" fill="none" stroke="#10b981" stroke-width="16" stroke-linecap="round"/>
+          <polyline points="166,118 190,118 190,142" fill="none" stroke="#10b981" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>EduArya</h1>
+        <p>Education Free App</p>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <div class="user-badge" id="userBadge" title="User Profile">EA</div>
+      <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Theme">☀️</button>
+      <button class="icon-btn" onclick="toggleMenuDrawer(true)" title="Menu">⋮</button>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenuDrawer(false)"></div>
+  <aside class="menu-drawer" id="menuDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">EduArya Menu</div>
+      <button class="modal-close-btn" onclick="toggleMenuDrawer(false)">✕</button>
+    </div>
+    <nav class="menu-list">
+      <div class="menu-item" onclick="drawerNav('home')">🏠 HOME</div>
+      <div class="menu-item" onclick="drawerNav('study')">📱 STUDY APPS</div>
+      <div class="menu-item" onclick="drawerNav('books')">📚 BOOKS</div>
+      <div class="menu-item" onclick="drawerNav('test')">📄 TEST APPS</div>
+      <div class="menu-item" onclick="drawerNav('saved')">💾 SAVED APPS</div>
+      <div class="menu-item" onclick="drawerNav('social')">♣️ SOCIAL MEDIA</div>
+      <div class="menu-item" onclick="drawerNav('developer')">👨‍💻 DEVELOPER</div>
+      <div class="menu-item" onclick="toggleTheme(); toggleMenuDrawer(false);">☀️ LIGHT / 🌙 DARK</div>
+    </nav>
+  </aside>
+
+  <!-- APP CONTAINER -->
+  <main class="app-container">
+
+    <!-- HOME SECTION -->
+    <section id="section-home" class="page-section active">
+      <div class="hero-card">
+        <h2 class="hero-title">EduArya</h2>
+        <p class="hero-tagline">Education Free App</p>
+        <p class="hero-subtitle">Study Smarter. Prepare Better.</p>
+        <div class="hero-btn-row">
+          <button class="hero-btn" onclick="navigateTo('study')">🚀 START STUDYING</button>
+          <button class="hero-btn outline" onclick="navigateTo('study')">📱 STUDY APPS</button>
+          <button class="hero-btn outline" onclick="navigateTo('books')">📚 BOOKS</button>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item"><span>⭐</span><span>Premium Study Resources</span></div>
+        <div class="feature-item"><span>📚</span><span>Multiple Study Apps</span></div>
+        <div class="feature-item"><span>⚡</span><span>Fast Server Access</span></div>
+        <div class="feature-item"><span>💾</span><span>Save Your Favourite Apps</span></div>
+      </div>
+
+      <div class="telegram-banner">
+        <div class="tg-content">
+          <h3>JOIN TELEGRAM FOR UPDATE 🚀</h3>
+          <p>Get instant batch links & notes</p>
+        </div>
+        <button class="tg-btn" onclick="openExternalUrl(TELEGRAM_CHANNEL_URL)">Join Now</button>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+        <h3 style="font-size: 16px; font-weight: 800;">Featured Study Apps</h3>
+        <span style="font-size: 12px; color: var(--primary); font-weight: 700; cursor: pointer;" onclick="navigateTo('study')">View All →</span>
+      </div>
+      <div id="homeFeaturedApps" class="apps-list"></div>
+    </section>
+
+    <!-- STUDY APPS SECTION -->
+    <section id="section-study" class="page-section">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="studySearchInput" class="search-input" placeholder="Search Apps by name, credit..." oninput="handleSearch(this.value)">
+      </div>
+
+      <div class="filter-pills">
+        <div class="filter-pill active" onclick="applyFilter('all', this)">ALL</div>
+        <div class="filter-pill" onclick="applyFilter('free', this)">FREE</div>
+        <div class="filter-pill" onclick="applyFilter('premium', this)">PREMIUM</div>
+        <div class="filter-pill" onclick="applyFilter('saved', this)">SAVED</div>
+      </div>
+
+      <div id="studyAppsContainer" class="apps-list"></div>
+    </section>
+
+    <!-- BOOKS SECTION -->
+    <section id="section-books" class="page-section">
+      <div style="margin-bottom: 12px;">
+        <h2 style="font-size: 18px; font-weight: 800;">📚 EXCLUSIVE STUDY BOOKS</h2>
+        <p style="font-size: 12px; color: var(--text-muted);">ब्रह्मास्त्र नोट्स व बुक्स (Opens in Chrome / External)</p>
+      </div>
+
+      <div class="books-grid">
+        <div class="book-card">
+          <div>
+            <span class="book-badge">CLASS 12TH</span>
+            <div class="book-icon">📖</div>
+            <h3 class="book-title">ब्रह्मास्त्र 12th</h3>
+            <p class="book-desc">Class 12th Board Formula Sheets, Question Bank & Notes</p>
+          </div>
+          <button class="btn-book-open" onclick="openBookExternally('https://t.me/c/4300089119/6')">
+            🚀 Access EBook ↗
+          </button>
+        </div>
+
+        <div class="book-card">
+          <div>
+            <span class="book-badge">CLASS 10TH</span>
+            <div class="book-icon">📚</div>
+            <h3 class="book-title">ब्रह्मास्त्र 10th</h3>
+            <p class="book-desc">Class 10th Matric Notes, Model Papers & Quick Revision</p>
+          </div>
+          <button class="btn-book-open" onclick="openBookExternally('https://t.me/c/4300089119/32')">
+            🚀 Access EBook ↗
+          </button>
+        </div>
+
+        <div class="book-card">
+          <div>
+            <span class="book-badge">Other's</span>
+            <div class="book-icon">📚</div>
+            <h3 class="book-title">All Books Library</h3>
+            <p class="book-desc">All Educational Notes, Model Papers & Quick Revision</p>
+          </div>
+          <button class="btn-book-open" onclick="openBookExternally('https://t.me/+v0428UbRCk1jYjFl')">
+            🚀 Access EBook ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEST APPS SECTION -->
+    <section id="section-test" class="page-section">
+      <div style="margin-bottom: 14px;">
+        <h2 style="font-size: 18px; font-weight: 800;">📄 TEST APPS & SERIES</h2>
+        <p style="font-size: 12px; color: var(--text-muted);">Official All India Test Series & Discussion Portal</p>
+      </div>
+      <div id="testAppsContainer" class="apps-list"></div>
+    </section>
+
+    <!-- SAVED APPS SECTION -->
+    <section id="section-saved" class="page-section">
+      <div style="margin-bottom: 14px;">
+        <h2 style="font-size: 18px; font-weight: 800;">💾 SAVED APPS</h2>
+        <p style="font-size: 12px; color: var(--text-muted);">Your pinned apps for quick access</p>
+      </div>
+      <div id="savedAppsContainer" class="apps-list"></div>
+    </section>
+
+    <!-- SOCIAL MEDIA SECTION -->
+    <section id="section-social" class="page-section">
+      <div class="app-card">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 6px;">♣️ SOCIAL MEDIA</h2>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Connect with official community channels:</p>
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+          <button class="btn-study-now" style="background:#229ED9;" onclick="openExternalUrl(TELEGRAM_CHANNEL_URL)">🚀 Telegram</button>
+          <button class="btn-study-now" style="background:#FF0000;" onclick="openExternalUrl(SOCIAL_LINKS.youtube)">📺 YouTube</button>
+          <button class="btn-study-now" style="background:#E1306C;" onclick="openExternalUrl(SOCIAL_LINKS.instagram)">📷 Instagram</button>
+          <button class="btn-study-now" style="background:#25D366;" onclick="openExternalUrl(SOCIAL_LINKS.whatsapp)">💬 WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER SECTION -->
+    <section id="section-developer" class="page-section">
+      <div class="app-card">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+          <div style="width:50px; height:50px; border-radius:14px; background:linear-gradient(135deg, #0284c7, #10b981); display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff;">👨‍💻</div>
+          <div>
+            <h2 style="font-size: 18px; font-weight: 800;">THE AK🥴</h2>
+            <p style="font-size: 12px; color: var(--text-muted);">Lead Developer & Creator</p>
+          </div>
+        </div>
+        <div style="border-top: 1px solid var(--surface-border); padding-top: 12px; font-size: 13px;">
+          <p><strong>Contact:</strong> 777</p>
+          <p style="margin-top: 4px;"><strong>App Name:</strong> EduArya - Education Free App</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <footer class="bottom-nav">
+    <div class="b-nav-item active" id="bNav-home" onclick="navigateTo('home')">
+      <span class="icon">🏠</span>
+      <span>Home</span>
+    </div>
+    <div class="b-nav-item" id="bNav-study" onclick="navigateTo('study')">
+      <span class="icon">📱</span>
+      <span>Study</span>
+    </div>
+    <div class="b-nav-item" id="bNav-books" onclick="navigateTo('books')">
+      <span class="icon">📚</span>
+      <span>Books</span>
+    </div>
+    <div class="b-nav-item" id="bNav-test" onclick="navigateTo('test')">
+      <span class="icon">📄</span>
+      <span>Tests</span>
+    </div>
+    <div class="b-nav-item" id="bNav-saved" onclick="navigateTo('saved')">
+      <span class="icon">💾</span>
+      <span>Saved</span>
+    </div>
+  </footer>
+
+  <!-- MODAL: SERVER SELECTION -->
+  <div class="modal-backdrop" id="serverModal">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="serverModalAppTitle">Choose Server</h3>
+          <p style="font-size: 11px; color: var(--text-muted);">Select high-speed server to launch immediately</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeServerModal()">✕</button>
+      </div>
+      <div class="server-list-group" id="serverModalList"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       JAVASCRIPT LOGIC
+       ======================================================== -->
+  <script>
+    /* CONFIGURATIONS */
+    const TELEGRAM_CHANNEL_URL = "https://t.me/+w9JtasxMbwtkZDc1";
+    const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/1vb3lp2OuvkROBbuScTT8mV7pk4W2mYPNcNd6WAgIS4E/viewform?embedded=true";
+
+    const SOCIAL_LINKS = {
+      telegram: TELEGRAM_CHANNEL_URL,
+      youtube: "https://youtube.com/@the_karthik_boy_1?si=Y-efHobsMAaUn7Za",
+      instagram: "https://t.me/+e1hJiAahJ8tmOThl",
+      whatsapp: "https://t.me/+e1hJiAahJ8tmOThl"
+    };
+
+    /* 19 STUDY APPS */
+    const APP_DATABASE = [
+      {
+        id: "app_pw",
+        name: "EduAryaPW",
+        credit: "Alakh Pandey",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://s4-cdn.samfygros.com/", best: false },
+          { name: "SERVER 2 ⭐ BEST SERVER", url: "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d189", best: true },
+          { name: "SERVER 3", url: "https://physicswalla.studypanda.live/study/batches", best: false },
+          { name: "SERVER 4", url: "https://pw.nexthope.site/study/batches", best: false }
+        ]
+      },
+      {
+        id: "app_rwa",
+        name: "EduArya RWA",
+        credit: "Ankit Bhati",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://rwa.streamfiles.eu.org/#all", best: false },
+          { name: "SERVER 2 ⭐ BEST SERVER", url: "https://rwa.studypanda.live/", best: true },
+          { name: "SERVER 3", url: "https://nexthope.site/rwa/", best: false }
+        ]
+      },
+      {
+        id: "app_vidyakul",
+        name: "EduArya Vidyakul",
+        credit: "Tarun Saini",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://vidyakool.streamfiles.eu.org/", best: false },
+          { name: "SERVER 2 ⭐ BEST SERVER", url: "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d2853", best: true }
+        ]
+      },
+      {
+        id: "app_target_board",
+        name: "Target Board",
+        credit: "Prince Kumar",
+        premium: true,
+        servers: [
+          { name: "MAIN SERVER ⭐ BEST", url: "https://asmultiverse.app/?tab=home&app=694690cbe1df5128eacc5caa", best: true },
+          { name: "SERVER 2", url: "https://tb.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_next_topper",
+        name: "eduNextTopper",
+        credit: "Prashant Kirad",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d182", best: true },
+          { name: "SERVER 2", url: "https://nt.nexthope.cc.cd/", best: false },
+          { name: "SERVER 3", url: "https://studypanda.live/nt", best: false },
+          { name: "SERVER 4", url: "https://nt.streamfiles.eu.org/", best: false }
+        ]
+      },
+      {
+        id: "app_unacademy",
+        name: "EduArya UNACADEMY",
+        credit: "Gaurav Munjal",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://studypanda.live/ud", best: true },
+          { name: "SERVER 2", url: "https://nexthope.site/unacademy/", best: false },
+          { name: "📥 OFFLINE SERVER", url: "https://nexthope.site/uncoffline/", best: false }
+        ]
+      },
+      {
+        id: "app_selection_way",
+        name: "Edu SELECTION WAY",
+        credit: "Gagan Pratap",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a356fx5", best: true },
+          { name: "SERVER 2", url: "https://selectionway.streamfiles.eu.org/", best: false },
+          { name: "SERVER 3", url: "https://nexthope.site/sw/", best: false }
+        ]
+      },
+      {
+        id: "app_vidyagram",
+        name: "EduArya Vidyagram",
+        credit: "Ankit Rajan",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://vidya.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_mission_jeet",
+        name: "EduArya MISSION JEET",
+        credit: "Shobhit Nirwan",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://asmultiverse.app/?tab=home&app=69d6a2a167a3a4263ae3d0d0", best: false },
+          { name: "SERVER 2", url: "https://studypanda.live/missionjeet", best: false },
+          { name: "SERVER 3", url: "https://nexthope.site/mj/", best: false },
+          { name: "SERVER 4", url: "https://mj.streamfiles.eu.org/", best: false }
+        ]
+      },
+      {
+        id: "app_apna_college",
+        name: "EduArya Apna College",
+        credit: "Shradha Khapra",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79456669", best: false }
+        ]
+      },
+      {
+        id: "app_studyiq",
+        name: "EduArya STUDY IQ",
+        credit: "Dr. Gaurav Garg",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://studyiq.streamfiles.eu.org/", best: false }
+        ]
+      },
+      {
+        id: "app_science_and_fun",
+        name: "EduArya S&F",
+        credit: "Ashu Ghai",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://studypanda.live/scienceandfun", best: true },
+          { name: "SERVER 2", url: "https://scienceandfun.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_cds_journey",
+        name: "EduArya CDS JOURNEY",
+        credit: "Anurag Tripathi",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://cds.streamfiles.eu.org/", best: false }
+        ]
+      },
+      {
+        id: "app_vibrant",
+        name: "EduArya Vibrant Academy",
+        credit: "Nishant Jindal",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://studypanda.live/vibrant", best: true },
+          { name: "SERVER 2", url: "https://vb.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_iit_school",
+        name: "EduArya IIT SCHOOL",
+        credit: "Manoj Chauhan (MC Sir)",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://others.streamfiles.eu.org/iit/", best: false }
+        ]
+      },
+      {
+        id: "app_master_sahab",
+        name: "EduArya Master Sahab",
+        credit: "Ayush Kumar",
+        premium: false,
+        servers: [
+          { name: "SERVER 1 ⭐ BEST SERVER", url: "https://mastersahab.studypanda.live/", best: true },
+          { name: "SERVER 2", url: "https://nexthope.site/mastersahab/index.html?__cf_chl_rt_tk=dj.BGi7CvtbqyouIi6vgTbN4bFyy1d5Q1gKkH5d13KI-1791217298-1.0.1.1-M2oINOi1gV9SHqtT0sqF47JMzWxZo3cArr8G.ExUeiU", best: false }
+        ]
+      },
+      {
+        id: "app_yes_officer",
+        name: "EduArya Yes Officer",
+        credit: "Aashish Arora +2",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://yesofficer.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_sachin_academy",
+        name: "EduArya Sachin Academy",
+        credit: "Sachin Choudhary",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://sachin.nexthope.cc.cd/", best: false }
+        ]
+      },
+      {
+        id: "app_toppers_wisdom",
+        name: "EduArya Toppers Wisdom",
+        credit: "Prashant Solanki",
+        premium: false,
+        servers: [
+          { name: "SERVER 1", url: "https://tw.nexthope.cc.cd/", best: false }
+        ]
+      }
+    ];
+
+    /* TEST APPS */
+    const TEST_APP_DATABASE = [
+      {
+        id: "test_arya",
+        name: "TESTArya",
+        credit: "The AK",
+        description: "Official All India Test Series & Discussion Portal.",
+        premium: true,
+        servers: [
+          { name: "⭐ BEST SERVER", url: "https://t.me/+v0428UbRCk1jYjFl", best: true }
+        ]
+      }
+    ];
+
+    /* LOCAL STORAGE */
+    let currentFilterMode = "all";
+    let activeSearchQuery = "";
+    let savedAppIds = JSON.parse(localStorage.getItem("edu_saved_apps") || "[]");
+    let userProfile = JSON.parse(localStorage.getItem("edu_user_v2") || "null");
+    let isTgJoined = localStorage.getItem("edu_tg_joined_v2") === "true";
+
+    /* INITIALIZATION */
+    window.addEventListener("DOMContentLoaded", () => {
+      initNetworkListeners();
+      initTheme();
+      updateUserBadge();
+      renderAllSections();
+      runSplashScreen();
+    });
+
+    function runSplashScreen() {
+      const progressBar = document.getElementById("splashProgress");
+      const percentText = document.getElementById("splashPercent");
+      const splash = document.getElementById("splashScreen");
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 8) + 4;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          progressBar.style.width = "100%";
+          percentText.innerText = "100%";
+          setTimeout(() => {
+            splash.style.opacity = "0";
+            splash.style.visibility = "hidden";
+            verifyAppAccessGates();
+          }, 350);
+        } else {
+          progressBar.style.width = progress + "%";
+          percentText.innerText = progress + "%";
+        }
+      }, 45);
+    }
+
+    function verifyAppAccessGates() {
+      if (!isTgJoined) {
+        document.getElementById("telegramGateOverlay").style.display = "flex";
+        return;
+      }
+      if (!userProfile || !userProfile.registered || !userProfile.mobile) {
+        openMandatorySignupGate();
+        return;
+      }
+    }
+
+    function handleTelegramJoinClick() {
+      window.open(TELEGRAM_CHANNEL_URL, "_blank");
+      document.getElementById("btnTgConfirmed").style.display = "flex";
+    }
+
+    function confirmTelegramJoin() {
+      isTgJoined = true;
+      localStorage.setItem("edu_tg_joined_v2", "true");
+      document.getElementById("telegramGateOverlay").style.display = "none";
+      if (!userProfile || !userProfile.registered || !userProfile.mobile) {
+        openMandatorySignupGate();
+      }
+    }
+
+    function openMandatorySignupGate() {
+      const overlay = document.getElementById("signupGateOverlay");
+      const iframe = document.getElementById("gateGoogleFormIframe");
+      if (iframe.src === "about:blank" || !iframe.src) {
+        iframe.src = GOOGLE_FORM_URL;
+      }
+      overlay.style.display = "flex";
+    }
+
+    /* STRICT VALIDATION */
+    function verifyAndConfirmSignup() {
+      const name = document.getElementById("gateRegName").value.trim();
+      const mobile = document.getElementById("gateRegMobile").value.trim();
+      const userClass = document.getElementById("gateRegClass").value;
+      const isChecked = document.getElementById("gateCheckbox").checked;
+      const errorBox = document.getElementById("gateFormError");
+
+      if (!name || name.length < 3) {
+        showGateError("कृपया अपना पूरा नाम लिखें (कम से कम 3 अक्षर)!");
+        return;
+      }
+
+      const phoneRegex = /^[6-9]\d{9}$/;
+      if (!mobile || !phoneRegex.test(mobile)) {
+        showGateError("कृपया 10 अंकों का वैध मोबाइल नंबर दर्ज करें!");
+        return;
+      }
+
+      if (!isChecked) {
+        showGateError("कृपया गूगल फ़ॉर्म सबमिट करने के बाद चेकबॉक्स पर टिक करें!");
+        return;
+      }
+
+      errorBox.style.display = "none";
+      userProfile = {
+        name: name,
+        mobile: mobile,
+        class: userClass,
+        registered: true
+      };
+      localStorage.setItem("edu_user_v2", JSON.stringify(userProfile));
+      updateUserBadge();
+      document.getElementById("signupGateOverlay").style.display = "none";
+      alert("✅ बधाई हो! आपका रजिस्ट्रेशन सत्यापित हो गया है।");
+    }
+
+    function showGateError(msg) {
+      const errorBox = document.getElementById("gateFormError");
+      errorBox.innerText = `⚠️ ${msg}`;
+      errorBox.style.display = "block";
+    }
+
+    /* EXTERNAL OPENER (CHROME) FOR BOOKS */
+    function openBookExternally(url) {
+      if (!url) return;
+      window.open(url, "_system");
+      window.open(url, "_blank");
+    }
+
+    function initNetworkListeners() {
+      const netIndicator = document.getElementById("networkStatus");
+      const updateNet = () => {
+        netIndicator.style.display = navigator.onLine ? "none" : "block";
+      };
+      window.addEventListener("online", updateNet);
+      window.addEventListener("offline", updateNet);
+      updateNet();
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem("edu_theme") || "light";
+      document.body.setAttribute("data-theme", savedTheme);
+      document.getElementById("themeToggleBtn").innerText = savedTheme === "dark" ? "🌙" : "☀️";
+    }
+
+    function toggleTheme() {
+      const current = document.body.getAttribute("data-theme") || "light";
+      const target = current === "light" ? "dark" : "light";
+      document.body.setAttribute("data-theme", target);
+      localStorage.setItem("edu_theme", target);
+      document.getElementById("themeToggleBtn").innerText = target === "dark" ? "🌙" : "☀️";
+    }
+
+    function updateUserBadge() {
+      const badge = document.getElementById("userBadge");
+      if (userProfile && userProfile.name) {
+        badge.innerText = getInitials(userProfile.name);
+      } else {
+        badge.innerText = "EA";
+      }
+    }
+
+    function getInitials(name) {
+      if (!name) return "EA";
+      const parts = name.trim().split(/\s+/);
+      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+
+    function navigateTo(sectionId) {
+      document.querySelectorAll(".page-section").forEach(sec => sec.classList.remove("active"));
+      document.querySelectorAll(".b-nav-item").forEach(b => b.classList.remove("active"));
+
+      const targetSec = document.getElementById(`section-${sectionId}`);
+      if (targetSec) targetSec.classList.add("active");
+
+      const bNav = document.getElementById(`bNav-${sectionId}`);
+      if (bNav) bNav.classList.add("active");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      toggleMenuDrawer(false);
+
+      if (sectionId === "saved") {
+        renderSavedApps();
+      }
+    }
+
+    function drawerNav(sectionId) {
+      navigateTo(sectionId);
+    }
+
+    function toggleMenuDrawer(open) {
+      const drawer = document.getElementById("menuDrawer");
+      const overlay = document.getElementById("menuOverlay");
+      if (open) {
+        drawer.classList.add("open");
+        overlay.classList.add("open");
+      } else {
+        drawer.classList.remove("open");
+        overlay.classList.remove("open");
+      }
+    }
+
+    function renderAllSections() {
+      renderStudyApps();
+      renderTestApps();
+      renderSavedApps();
+      renderFeaturedHome();
+    }
+
+    function createCardElement(app, isTest = false) {
+      const isSaved = savedAppIds.includes(app.id);
+      const card = document.createElement("div");
+      card.className = "app-card";
+
+      const bookmarkSvg = `
+        <svg viewBox="0 0 24 24">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+        </svg>
+      `;
+
+      card.innerHTML = `
+        <button class="btn-mini-save ${isSaved ? "saved" : ""}" onclick="toggleSaveApp('${app.id}')" title="Save App">
+          ${bookmarkSvg}
+        </button>
+
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <h4 class="card-title">${isTest ? "📄" : "📱"} ${escapeHtml(app.name)}</h4>
+            <span class="badge ${app.premium ? "badge-premium" : "badge-free"}">
+              ${app.premium ? "⭐ Premium" : "Free"}
+            </span>
+          </div>
+        </div>
+        <div class="card-credit">
+          <span>👤 Credit: <strong>${escapeHtml(app.credit)}</strong></span>
+        </div>
+        ${isTest && app.description ? `<p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">${escapeHtml(app.description)}</p>` : ""}
+        <div class="card-actions">
+          <button class="btn-study-now" onclick="handleStudyNowClick('${app.id}', ${isTest})">
+            🚀 ${isTest ? "TEST NOW" : "STUDY NOW"}
+          </button>
+        </div>
+      `;
+      return card;
+    }
+
+    function renderStudyApps() {
+      const container = document.getElementById("studyAppsContainer");
+      if (!container) return;
+      container.innerHTML = "";
+
+      const filtered = APP_DATABASE.filter(app => {
+        const query = activeSearchQuery.toLowerCase();
+        const matchName = app.name.toLowerCase().includes(query);
+        const matchCredit = app.credit.toLowerCase().includes(query);
+        const matchesSearch = matchName || matchCredit;
+
+        let matchesFilter = true;
+        if (currentFilterMode === "free") matchesFilter = !app.premium;
+        if (currentFilterMode === "premium") matchesFilter = !!app.premium;
+        if (currentFilterMode === "saved") matchesFilter = savedAppIds.includes(app.id);
+
+        return matchesSearch && matchesFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted);"><p>No study apps found.</p></div>`;
+        return;
+      }
+
+      filtered.forEach(app => {
+        container.appendChild(createCardElement(app, false));
+      });
+    }
+
+    function renderFeaturedHome() {
+      const container = document.getElementById("homeFeaturedApps");
+      if (!container) return;
+      container.innerHTML = "";
+      APP_DATABASE.slice(0, 4).forEach(app => {
+        container.appendChild(createCardElement(app, false));
+      });
+    }
+
+    function renderTestApps() {
+      const container = document.getElementById("testAppsContainer");
+      if (!container) return;
+      container.innerHTML = "";
+      TEST_APP_DATABASE.forEach(app => {
+        container.appendChild(createCardElement(app, true));
+      });
+    }
+
+    function renderSavedApps() {
+      const container = document.getElementById("savedAppsContainer");
+      if (!container) return;
+      container.innerHTML = "";
+      const allApps = [...APP_DATABASE, ...TEST_APP_DATABASE];
+      const savedList = allApps.filter(a => savedAppIds.includes(a.id));
+
+      if (savedList.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-muted);"><p>No saved apps yet.</p></div>`;
+        return;
+      }
+
+      savedList.forEach(app => {
+        const isTest = TEST_APP_DATABASE.some(t => t.id === app.id);
+        container.appendChild(createCardElement(app, isTest));
+      });
+    }
+
+    function toggleSaveApp(appId) {
+      if (savedAppIds.includes(appId)) {
+        savedAppIds = savedAppIds.filter(id => id !== appId);
+      } else {
+        savedAppIds.push(appId);
+      }
+      localStorage.setItem("edu_saved_apps", JSON.stringify(savedAppIds));
+      renderStudyApps();
+      renderTestApps();
+      renderSavedApps();
+      renderFeaturedHome();
+    }
+
+    function handleSearch(val) {
+      activeSearchQuery = val;
+      renderStudyApps();
+    }
+
+    function applyFilter(mode, pillElement) {
+      currentFilterMode = mode;
+      document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+      pillElement.classList.add("active");
+      renderStudyApps();
+    }
+
+    /* STUDY NOW CLICK FLOW */
+    function handleStudyNowClick(appId, isTest = false) {
+      if (!userProfile || !userProfile.registered || !userProfile.mobile) {
+        openMandatorySignupGate();
+        return;
+      }
+
+      const targetList = isTest ? TEST_APP_DATABASE : APP_DATABASE;
+      const app = targetList.find(a => a.id === appId);
+      if (!app || !app.servers || app.servers.length === 0) return;
+
+      openServerModal(app);
+    }
+
+    function openServerModal(app) {
+      const modal = document.getElementById("serverModal");
+      const title = document.getElementById("serverModalAppTitle");
+      const list = document.getElementById("serverModalList");
+
+      title.innerText = app.name;
+      list.innerHTML = "";
+
+      app.servers.forEach(srv => {
+        const btn = document.createElement("button");
+        btn.className = srv.best ? "srv-choice-btn best" : "srv-choice-btn";
+        const icon = srv.best ? "⭐" : (srv.name.includes("OFFLINE") ? "📥" : "🟢");
+        btn.innerHTML = `
+          <span>${icon} ${escapeHtml(srv.name)}</span>
+          <span style="font-size:12px;">Launch Server →</span>
+        `;
+        btn.onclick = () => {
+          closeServerModal();
+          triggerServerOpen(srv.url, `${app.name} - ${srv.name}`);
+        };
+        list.appendChild(btn);
+      });
+
+      modal.classList.add("open");
+    }
+
+    function closeServerModal() {
+      document.getElementById("serverModal").classList.remove("open");
+    }
+
+    /* DIRECT NAVIGATION IN WEBVIEW */
+    function triggerServerOpen(url, title = "Study Server") {
+      window.location.href = url;
+    }
+
+    function openExternalUrl(url) {
+      if (!url) return;
+      window.open(url, "_blank");
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
