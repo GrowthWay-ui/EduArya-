@@ -1,0 +1,480 @@
+{
+ "updated": 1794361078113,
+ "apps": [
+  {
+   "id": "app_pw",
+   "name": "EduAryaPW",
+   "credit": "Alakh Pandey",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://s4-cdn.samfygros.com/",
+     "best": false
+    },
+    {
+     "name": "SERVER 2 ⭐ BEST SERVER",
+     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d189",
+     "best": true
+    },
+    {
+     "name": "SERVER 3",
+     "url": "https://physicswalla.studypanda.live/study/batches",
+     "best": false
+    },
+    {
+     "name": "SERVER 4",
+     "url": "https://pw.nexthope.site/study/batches",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_rwa",
+   "name": "EduArya RWA",
+   "credit": "Ankit Bhati",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://rwa.streamfiles.eu.org/#all",
+     "best": false
+    },
+    {
+     "name": "SERVER 2 ⭐ BEST SERVER",
+     "url": "https://rwa.studypanda.live/",
+     "best": true
+    },
+    {
+     "name": "SERVER 3",
+     "url": "https://nexthope.site/rwa/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_parmar",
+   "name": "EduArya Parmar",
+   "credit": "Parmar Sir",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://growthway-ui.github.io/EduArya-Parmar-/",
+     "best": true
+    }
+   ]
+  },
+  {
+   "id": "app_vidyakul",
+   "name": "EduArya Vidyakul",
+   "credit": "Tarun Saini",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://vidyakool.streamfiles.eu.org/",
+     "best": false
+    },
+    {
+     "name": "SERVER 2 ⭐ BEST SERVER",
+     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d2853",
+     "best": true
+    }
+   ]
+  },
+  {
+   "id": "app_target_board",
+   "name": "Target Board",
+   "credit": "Prince Kumar",
+   "premium": false,
+   "servers": [
+    {
+     "name": "MAIN SERVER ⭐ BEST",
+     "url": "https://asmultiverse.app/?tab=home&app=694690cbe1df5128eacc5caa",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://tb.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_next_topper",
+   "name": "eduNextTopper",
+   "credit": "Prashant Kirad",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d182",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://nt.nexthope.cc.cd/",
+     "best": false
+    },
+    {
+     "name": "SERVER 3",
+     "url": "https://studypanda.live/nt",
+     "best": false
+    },
+    {
+     "name": "SERVER 4",
+     "url": "https://nt.streamfiles.eu.org/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_unacademy",
+   "name": "EduArya UNACADEMY",
+   "credit": "Gaurav Munjal",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://studypanda.live/ud",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://nexthope.site/unacademy/",
+     "best": false
+    },
+    {
+     "name": "📥 OFFLINE SERVER",
+     "url": "https://nexthope.site/uncoffline/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_selection_way",
+   "name": "Edu SELECTION WAY",
+   "credit": "Gagan Pratap",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a356fx5",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://selectionway.streamfiles.eu.org/",
+     "best": false
+    },
+    {
+     "name": "SERVER 3",
+     "url": "https://nexthope.site/sw/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_vidyagram",
+   "name": "EduArya Vidyagram",
+   "credit": "Ankit Rajan",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://vidya.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_mission_jeet",
+   "name": "EduArya MISSION JEET",
+   "credit": "Shobhit Nirwan",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://asmultiverse.app/?tab=home&app=69d6a2a167a3a4263ae3d0d0",
+     "best": false
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://studypanda.live/missionjeet",
+     "best": false
+    },
+    {
+     "name": "SERVER 3",
+     "url": "https://nexthope.site/mj/",
+     "best": false
+    },
+    {
+     "name": "SERVER 4",
+     "url": "https://mj.streamfiles.eu.org/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_apna_college",
+   "name": "EduArya Apna College",
+   "credit": "Shradha Khapra",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79456669",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_studyiq",
+   "name": "EduArya STUDY IQ",
+   "credit": "Dr. Gaurav Garg",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://studyiq.streamfiles.eu.org/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_science_and_fun",
+   "name": "EduArya S&F",
+   "credit": "Ashu Ghai",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://studypanda.live/scienceandfun",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://scienceandfun.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_cds_journey",
+   "name": "EduArya CDS JOURNEY",
+   "credit": "Anurag Tripathi",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://cds.streamfiles.eu.org/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_vibrant",
+   "name": "EduArya Vibrant Academy",
+   "credit": "Nishant Jindal",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://studypanda.live/vibrant",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://vb.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_iit_school",
+   "name": "EduArya IIT SCHOOL",
+   "credit": "Manoj Chauhan (MC Sir)",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://others.streamfiles.eu.org/iit/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_master_sahab",
+   "name": "EduArya Master Sahab",
+   "credit": "Ayush Kumar",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1 ⭐ BEST SERVER",
+     "url": "https://mastersahab.studypanda.live/",
+     "best": true
+    },
+    {
+     "name": "SERVER 2",
+     "url": "https://nexthope.site/mastersahab/index.html?__cf_chl_rt_tk=dj.BGi7CvtbqyouIi6vgTbN4bFyy1d5Q1gKkH5d13KI-1791217298-1.0.1.1-M2oINOi1gV9SHqtT0sqF47JMzWxZo3cArr8G.ExUeiU",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_yes_officer",
+   "name": "EduArya Yes Officer",
+   "credit": "Aashish Arora +2",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://yesofficer.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_sachin_academy",
+   "name": "EduArya Sachin Academy",
+   "credit": "Sachin Choudhary",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://sachin.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_toppers_wisdom",
+   "name": "EduArya Toppers Wisdom",
+   "credit": "Prashant Solanki",
+   "premium": false,
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://tw.nexthope.cc.cd/",
+     "best": false
+    }
+   ]
+  }
+ ],
+ "tests": [
+  {
+   "id": "test_arya",
+   "name": "TESTArya",
+   "credit": "The AK",
+   "description": "Official All India Test Series & Discussion Portal.",
+   "premium": false,
+   "servers": [
+    {
+     "name": "⭐ BEST SERVER",
+     "url": "https://repeatermock.com/",
+     "best": true
+    }
+   ]
+  }
+ ],
+ "books": [
+  {
+   "id": "book_brahm12",
+   "badge": "CLASS 12TH",
+   "title": "ब्रह्मास्त्र 12th",
+   "desc": "Class 12th Board Formula Sheets, Question Bank & Notes",
+   "img": "https://i.ibb.co/xq13NfmQ/20260920-075612.jpg",
+   "url": "https://t.me/eduarya_notes_bot?start=WsP29osBm4"
+  },
+  {
+   "id": "book_brahm10",
+   "badge": "CLASS 10TH",
+   "title": "ब्रह्मास्त्र 10th",
+   "desc": "Class 10th Matric Notes, Model Papers & Quick Revision",
+   "img": "https://i.ibb.co/KpBBDNDy/IMG-20261012-121701-315.jpg",
+   "url": "https://t.me/eduarya_notes_bot?start=liaRe8GzWm"
+  },
+  {
+   "id": "book_hindi12",
+   "badge": "CLASS 12TH",
+   "title": "12th Hindi by DOC",
+   "desc": "Bihar Board Class 12th Hindi Book by Sanjay Sir.",
+   "img": "https://i.ibb.co/8D4jJGTp/IMG-20261029-181934-364-1.jpg",
+   "url": "https://t.me/eduarya_notes_bot?start=iz9swHF6Mo"
+  },
+  {
+   "id": "book_all",
+   "badge": "Other's",
+   "title": "All Books Library",
+   "desc": "All Educational Notes, Model Papers & Quick Revision",
+   "img": "https://i.ibb.co/zVZ5HdCh/20261007-130126.jpg",
+   "url": "https://t.me/+v0428UbRCk1jYjFl"
+  }
+ ],
+ "sections": [
+  {
+   "id": "home",
+   "label": "HOME",
+   "dockLabel": "Home",
+   "icon": "https://i.ibb.co/qMR9SBXZ/IMG-e21e1097-0573-4568-b3d0-d4877758b5f4.png",
+   "dock": true
+  },
+  {
+   "id": "study",
+   "label": "STUDY APPS",
+   "dockLabel": "Study",
+   "icon": "🎓",
+   "dock": true
+  },
+  {
+   "id": "books",
+   "label": "BOOKS",
+   "dockLabel": "Books",
+   "icon": "https://i.ibb.co/Df5PJ9D5/IMG-882cec40-264a-475d-9cea-29fe2b9299a7.jpg",
+   "dock": true
+  },
+  {
+   "id": "test",
+   "label": "TEST APPS",
+   "dockLabel": "Tests",
+   "icon": "https://i.ibb.co/S4MWwx89/IMG-bfb4cec6-dabb-4db2-86ac-4ba61aff81cb.jpg",
+   "dock": true
+  },
+  {
+   "id": "saved",
+   "label": "SAVED APPS",
+   "dockLabel": "Saved",
+   "icon": "https://i.ibb.co/FkX6xXwh/IMG-f48a8ac9-3cb7-4429-8de4-991d6e9bdd3c.jpg",
+   "dock": true
+  },
+  {
+   "id": "request",
+   "label": "REQUEST",
+   "dockLabel": "Request",
+   "icon": "https://i.ibb.co/wZrPQ0Qg/IMG-0a298209-da3c-4f31-acf0-8bad2a6f66ba.png",
+   "dock": true
+  },
+  {
+   "id": "earn",
+   "label": "EARN",
+   "dockLabel": "Earn",
+   "icon": "💰",
+   "dock": true
+  },
+  {
+   "id": "social",
+   "label": "SOCIAL MEDIA",
+   "dockLabel": "Social",
+   "icon": "♣️",
+   "dock": false
+  },
+  {
+   "id": "developer",
+   "label": "DEVELOPER",
+   "dockLabel": "Dev",
+   "icon": "🫂",
+   "dock": false
+  }
+ ]
+}
