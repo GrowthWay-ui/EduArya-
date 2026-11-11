@@ -1,5 +1,5 @@
 {
- "updated": 1794409489394,
+ "updated": 1794409492077,
  "apps": [
   {
    "id": "app_pw",
@@ -464,18 +464,18 @@
    "dock": false
   },
   {
-   "id": "request",
-   "label": "REQUEST",
-   "dockLabel": "Request",
-   "icon": "https://i.ibb.co/wZrPQ0Qg/IMG-0a298209-da3c-4f31-acf0-8bad2a6f66ba.png",
-   "dock": true
-  },
-  {
    "id": "developer",
    "label": "DEVELOPER",
    "dockLabel": "Dev",
    "icon": "🫂",
    "dock": false
+  },
+  {
+   "id": "request",
+   "label": "REQUEST",
+   "dockLabel": "Request",
+   "icon": "https://i.ibb.co/wZrPQ0Qg/IMG-0a298209-da3c-4f31-acf0-8bad2a6f66ba.png",
+   "dock": true
   }
  ]
 }
