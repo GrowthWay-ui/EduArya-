@@ -1,16 +1,16 @@
 {
- "updated": 1794361078113,
+ "updated": 1794361115680,
  "apps": [
   {
    "id": "app_pw",
-   "name": "EduAryaPW",
+   "name": "PW",
    "credit": "Alakh Pandey",
    "premium": false,
    "servers": [
     {
      "name": "SERVER 1",
      "url": "https://s4-cdn.samfygros.com/",
-     "best": false
+     "best": true
     },
     {
      "name": "SERVER 2 ⭐ BEST SERVER",
@@ -27,7 +27,8 @@
      "url": "https://pw.nexthope.site/study/batches",
      "best": false
     }
-   ]
+   ],
+   "logo": "https://user43441.na.imgto.link/public/20261012/6f362ccea6f291ce7ef54ae1-63434.avif"
   },
   {
    "id": "app_rwa",
