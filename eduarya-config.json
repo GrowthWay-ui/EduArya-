@@ -1,5 +1,5 @@
 {
- "updated": 1794409492077,
+ "updated": 1795402216832,
  "apps": [
   {
    "id": "app_pw",
@@ -91,16 +91,12 @@
    "premium": false,
    "servers": [
     {
-     "name": "MAIN SERVER ⭐ BEST",
-     "url": "https://asmultiverse.app/?tab=home&app=694690cbe1df5128eacc5caa",
+     "name": "MAIN SERVER",
+     "url": "https://t.me/c/4300089119/126",
      "best": true
-    },
-    {
-     "name": "SERVER 2",
-     "url": "https://tb.nexthope.cc.cd/",
-     "best": false
     }
-   ]
+   ],
+   "logo": "https://i.ibb.co/SXf67VDr/tblogo.webp"
   },
   {
    "id": "app_next_topper",
