@@ -1,5 +1,5 @@
 {
- "updated": 1795502102834,
+ "updated": 1795502113385,
  "apps": [
   {
    "id": "app_pw",
@@ -318,6 +318,19 @@
    ]
   },
   {
+   "id": "app_mwubkbva",
+   "name": "CAR33RW!LL",
+   "credit": "Rakesh Yadav",
+   "logo": "",
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://stream.nexthope.sbs/careerwill/",
+     "best": true
+    }
+   ]
+  },
+  {
    "id": "app_sachin_academy",
    "name": "EduArya Sachin Academy",
    "credit": "Sachin Choudhary",
@@ -340,19 +353,6 @@
      "name": "SERVER 1",
      "url": "https://tw.nexthope.cc.cd/",
      "best": false
-    }
-   ]
-  },
-  {
-   "id": "app_mwubkbva",
-   "name": "CAR33RW!LL",
-   "credit": "Rakesh Yadav",
-   "logo": "",
-   "servers": [
-    {
-     "name": "SERVER 1",
-     "url": "https://stream.nexthope.sbs/careerwill/",
-     "best": true
     }
    ]
   }
