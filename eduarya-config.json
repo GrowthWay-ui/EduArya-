@@ -1,5 +1,5 @@
 {
- "updated": 1795402216832,
+ "updated": 1795497582576,
  "apps": [
   {
    "id": "app_pw",
@@ -8,24 +8,9 @@
    "premium": false,
    "servers": [
     {
-     "name": "SERVER 1",
-     "url": "https://s4-cdn.samfygros.com/",
+     "name": "BEST SERVER 👍",
+     "url": "https://stream.aryavidya.cc/",
      "best": true
-    },
-    {
-     "name": "SERVER 2 ⭐ BEST SERVER",
-     "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79d189",
-     "best": true
-    },
-    {
-     "name": "SERVER 3",
-     "url": "https://physicswalla.studypanda.live/study/batches",
-     "best": false
-    },
-    {
-     "name": "SERVER 4",
-     "url": "https://pw.nexthope.site/study/batches",
-     "best": false
     }
    ],
    "logo": "https://user43441.na.imgto.link/public/20261012/6f362ccea6f291ce7ef54ae1-63434.avif"
