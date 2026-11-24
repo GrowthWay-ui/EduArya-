@@ -1,5 +1,5 @@
 {
- "updated": 1795497582576,
+ "updated": 1795502102834,
  "apps": [
   {
    "id": "app_pw",
@@ -340,6 +340,19 @@
      "name": "SERVER 1",
      "url": "https://tw.nexthope.cc.cd/",
      "best": false
+    }
+   ]
+  },
+  {
+   "id": "app_mwubkbva",
+   "name": "CAR33RW!LL",
+   "credit": "Rakesh Yadav",
+   "logo": "",
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://stream.nexthope.sbs/careerwill/",
+     "best": true
     }
    ]
   }
