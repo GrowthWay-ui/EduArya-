@@ -1,5 +1,5 @@
 {
- "updated": 1795502129007,
+ "updated": 1795502139278,
  "apps": [
   {
    "id": "app_pw",
@@ -14,6 +14,19 @@
     }
    ],
    "logo": "https://user43441.na.imgto.link/public/20261012/6f362ccea6f291ce7ef54ae1-63434.avif"
+  },
+  {
+   "id": "app_mwubkbva",
+   "name": "CAR33RW!LL",
+   "credit": "Rakesh Yadav",
+   "logo": "",
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://stream.nexthope.sbs/careerwill/",
+     "best": true
+    }
+   ]
   },
   {
    "id": "app_rwa",
@@ -208,19 +221,6 @@
      "name": "SERVER 1",
      "url": "https://asmultiverse.app/?tab=home&app=5eb393ee95fab7468a79456669",
      "best": false
-    }
-   ]
-  },
-  {
-   "id": "app_mwubkbva",
-   "name": "CAR33RW!LL",
-   "credit": "Rakesh Yadav",
-   "logo": "",
-   "servers": [
-    {
-     "name": "SERVER 1",
-     "url": "https://stream.nexthope.sbs/careerwill/",
-     "best": true
     }
    ]
   },
