@@ -1,5 +1,5 @@
 {
- "updated": 1795502113385,
+ "updated": 1795502121972,
  "apps": [
   {
    "id": "app_pw",
@@ -243,6 +243,19 @@
    ]
   },
   {
+   "id": "app_mwubkbva",
+   "name": "CAR33RW!LL",
+   "credit": "Rakesh Yadav",
+   "logo": "",
+   "servers": [
+    {
+     "name": "SERVER 1",
+     "url": "https://stream.nexthope.sbs/careerwill/",
+     "best": true
+    }
+   ]
+  },
+  {
    "id": "app_cds_journey",
    "name": "EduArya CDS JOURNEY",
    "credit": "Anurag Tripathi",
@@ -314,19 +327,6 @@
      "name": "SERVER 1",
      "url": "https://yesofficer.nexthope.cc.cd/",
      "best": false
-    }
-   ]
-  },
-  {
-   "id": "app_mwubkbva",
-   "name": "CAR33RW!LL",
-   "credit": "Rakesh Yadav",
-   "logo": "",
-   "servers": [
-    {
-     "name": "SERVER 1",
-     "url": "https://stream.nexthope.sbs/careerwill/",
-     "best": true
     }
    ]
   },
